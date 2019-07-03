@@ -21,7 +21,7 @@ const App: React.FC = () => {
             Learn React
           </a>
         </header>
-        <CreateTeams teams={[]} />
+        <CreateTeams />
       </div>
     </Provider>
   )

@@ -7,7 +7,7 @@ const initialState: ITeamsState = []
 function reducer(state = initialState, action: ITeamsActions) {
   switch (action.type) {
     case ADD:
-      return state.concat({ id: uuid(), name: action.payload })
+      return [...state, { id: uuid(), name: action.payload }]
     case REMOVE:
       return state.filter(team => team.id != action.payload)
     case UPDATE:

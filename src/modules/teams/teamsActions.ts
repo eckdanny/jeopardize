@@ -16,9 +16,11 @@ interface IRemoveTeamAction extends Action {
   payload: ITeam['id']
 }
 
-export const addTeam: ActionCreator<IAddTeamAction> = (
-  name: ITeam['name']
-) => ({
+/**
+ * Add a new team
+ * @param name Name of the new team
+ */
+export const addTeam = (name: ITeam['name']): IAddTeamAction => ({
   type: ADD,
   payload: name,
 })
