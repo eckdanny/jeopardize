@@ -1,15 +1,14 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import store from './store'
-import logo from './logo.svg'
-import './App.css'
+// import './App.css'
+import CreateTeams from './CreateTeams'
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
           </p>
@@ -22,6 +21,7 @@ const App: React.FC = () => {
             Learn React
           </a>
         </header>
+        <CreateTeams teams={[]} />
       </div>
     </Provider>
   )
