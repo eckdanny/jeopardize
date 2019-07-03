@@ -30,7 +30,7 @@ export const updateTeam: ActionCreator<IUpdateTeamAction> = (team: ITeam) => ({
   payload: team,
 })
 
-export const removeTeam: ActionCreator<IRemoveTeamAction> = id => ({
+export const removeTeam = (id: ITeam['id']): IRemoveTeamAction => ({
   type: REMOVE,
   payload: id,
 })

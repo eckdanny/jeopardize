@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createSelector } from 'reselect'
 import { AppState } from './reducers'
 import { toggleAdmin } from './modules/admin/adminActions'
-import { addTeam } from './modules/teams/teamsActions'
+import { addTeam, removeTeam } from './modules/teams/teamsActions'
+import { ITeam } from './modules/teams/teamsTypes'
 
 type CreateTeamsProps<T = {}> = {} & T
 
@@ -23,6 +24,9 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
     },
     [inputEl, teams]
   )
+  const handleRemove = (id: ITeam['id']) => {
+    dispatch(removeTeam(id))
+  }
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -35,7 +39,10 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
         <ul>
           {teams.map(team => (
             <li key={team.id}>
-              <div>{team.name}</div>
+              <div>
+                {team.name}
+                <button onClick={() => handleRemove(team.id)}>Remove</button>
+              </div>
             </li>
           ))}
         </ul>
