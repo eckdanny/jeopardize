@@ -30,6 +30,7 @@ class AdminPopUpWindow extends Component<
   }
 
   componentDidMount() {
+    // Determine if alreay open?
     this.open()
   }
 
@@ -53,6 +54,13 @@ class AdminPopUpWindow extends Component<
       const $new = $old.cloneNode(false)
       $new.appendChild(this.container)
       $old.parentNode!.replaceChild($new, $old)
+      // Close on Parent Unload
+      // this.window.opener.window.addEventListener('unload', () => {
+      //   alert('closed!')
+      // })
+      // this.window.opener  addEventListener('unload', () => {
+      //   this.window!.close()
+      // })
     }
   }
 

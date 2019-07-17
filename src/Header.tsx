@@ -11,7 +11,6 @@ const Header: React.FC<HeaderProps> = () => {
       <Link to="/" className={styles.Header__Brand}>
         JeoParity
       </Link>
-      <Link to="/">Home</Link>
       <Link to="/new">New</Link>
       <Link to="/game">Game</Link>
       <AdminPopUpToggleControl />
