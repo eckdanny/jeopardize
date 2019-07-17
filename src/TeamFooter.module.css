@@ -1,0 +1,22 @@
+.Wrapper {
+  background-color: var(--color-blue-dark);
+  position: fixed;
+  width: 100%;
+  /* height: 15vh; */
+  bottom: 0;
+}
+
+.TeamFooter {
+  display: flex;
+  justify-content: space-around;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.TeamFooter__Team {
+  background-color: red;
+}
+
+.TeamFooter__Team--active {
+  background-color: pink;
+}

@@ -1,0 +1,36 @@
+.Wizard {
+  display: flex;
+  flex-direction: column;
+  min-width: 50vw;
+}
+
+.WizardProgress {
+  border: 5px solid red;
+}
+
+.WizardWrapper {
+  border: 3px solid yellow;
+  display: flex;
+}
+
+.WizardContent {
+  flex-grow: 1;
+}
+
+.WizardPreviousContainer,
+.WizardNextContainer {
+  /* background-color: white; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.WizardPreviousContainer {
+}
+
+.WizardNextContainer {
+}
+
+.WizardFooter {
+  background-color: pink;
+}

@@ -1,12 +1,11 @@
 import { Reducer } from 'redux'
-import { IAdminState, SHOW, HIDE, TOGGLE } from './adminTypes'
-import { AdminActions } from './adminActions'
+import { IAdminState, SHOW, HIDE, TOGGLE, IAdminAction } from './adminTypes'
 
 const initialState: IAdminState = {
   isVisible: false,
 }
 
-const reducer: Reducer<IAdminState, AdminActions> = (
+export const reducer: Reducer<IAdminState, IAdminAction> = (
   state = initialState,
   action
 ) => {
@@ -21,5 +20,9 @@ const reducer: Reducer<IAdminState, AdminActions> = (
       return state
   }
 }
+
+// Selectors
+
+export const getIsVisible = (state: IAdminState) => state.isVisible
 
 export default reducer

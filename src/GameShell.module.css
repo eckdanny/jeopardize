@@ -1,0 +1,11 @@
+.GameShell {
+  margin-top: var(--nav-height);
+  flex-grow: 1;
+  background-color: var(--color-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: var(--max-width);
+  overflow: hidden;
+  margin: 0 auto;
+}

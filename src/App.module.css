@@ -1,0 +1,25 @@
+:root {
+  --color-blue-dark: #1421aa;
+  --color-blue: #0056d8;
+  --color-blue-light: #009fe5;
+  --color-yellow: #f1b154;
+  --nav-height: 5vh;
+  --grid-gap: 0.5rem;
+  --max-width: 980px;
+}
+
+:global html,
+:global body,
+:global #root {
+  height: 100%;
+  background-color: var(--color-blue);
+}
+
+.App {
+  height: 100%;
+  color: white;
+}
+
+.AppMain {
+  padding-top: var(--nav-height);
+}

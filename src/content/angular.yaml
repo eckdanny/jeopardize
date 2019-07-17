@@ -1,0 +1,44 @@
+name: Angular
+categories:
+ - name: Top-Level API
+   questions:
+    - 200 (Top-Level API)
+    - 400 (Top-Level API)
+    - 600 (Top-Level API)
+    - 800 (Top-Level API)
+    - 1000 (Top-Level API)
+ - name: Hooks
+   questions:
+    - 200 (Hooks)
+    - 400 (Hooks)
+    - 600 (Hooks)
+    - 800 (Hooks)
+    - 1000 (Hooks)
+ - name: Lifecycle Methods
+   questions:
+    - 200 (Lifecycle Methods)
+    - 400 (Lifecycle Methods)
+    - 600 (Lifecycle Methods)
+    - 800 (Lifecycle Methods)
+    - 1000 (Lifecycle Methods)
+ - name: JSX
+   questions:
+    - 200 (JSX)
+    - 400 (JSX)
+    - 600 (JSX)
+    - 800 (JSX)
+    - 1000 (JSX)
+ - name: Refs, Context, etc
+   questions:
+    - 200 (Refs, Context, etc)
+    - 400 (Refs, Context, etc)
+    - 600 (Refs, Context, etc)
+    - 800 (Refs, Context, etc)
+    - 1000 (Refs, Context, etc)
+ - name: Redux
+   questions:
+    - 200 (Redux)
+    - 400 (Redux)
+    - 600 (Redux)
+    - 800 (Redux)
+    - 1000 (Redux)

@@ -8,6 +8,13 @@ import { ITeam } from './modules/teams/teamsTypes'
 
 type CreateTeamsProps<T = {}> = {} & T
 
+const validateName = (name: string, teams: ITeam[]) => {
+  let err = false
+  if (!name) return 'Required!'
+  if (teams.find(team => team.name === name)) return 'Already Exists!'
+  return err
+}
+
 const CreateTeams: React.FC<CreateTeamsProps> = props => {
   const teams = useSelector((state: AppState) => state.teams)
   const dispatch = useDispatch()
@@ -15,11 +22,12 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
   const handleSubmit = useCallback(
     (e: SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault()
-      const newTeam = inputEl.current.value
-      if (teams.find(({ name }) => name === newTeam)) {
-        alert('already taken')
+      const newTeamName = inputEl.current.value
+      if (validateName(newTeamName, teams)) {
+        alert('nope')
       } else {
         dispatch(addTeam(inputEl.current.value))
+        inputEl.current.value = ''
       }
     },
     [inputEl, teams]
@@ -49,7 +57,6 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
       ) : (
         <div>NO TEAMS YET!</div>
       )}
-      <button>next</button>
     </div>
   )
 }
