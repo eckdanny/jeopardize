@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import uuid from 'uuid'
-import boards from './content'
+// import boards from './content'
 
-boards.forEach(board => ({ ...board, id: uuid() }))
+// boards.forEach(board => ({ ...board, id: uuid() }))
 
 type BoardSelectProps = {}
 
@@ -17,7 +17,7 @@ const BoardSelect: React.FC<BoardSelectProps> = props => {
   return (
     <div>
       <div>Select a Board!</div>
-      {boards.length && (
+      {/* {boards.length && (
         <form onSubmit={handleSubmit}>
           <ul>
             {boards.map(board => (
@@ -34,7 +34,7 @@ const BoardSelect: React.FC<BoardSelectProps> = props => {
             ))}
           </ul>
         </form>
-      )}
+      )} */}
     </div>
   )
 }

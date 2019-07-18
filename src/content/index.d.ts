@@ -1,15 +1,11 @@
 export interface IContent {
-  id?: string
   name: string
   categories: Array<{
     name: string
-    questions: Array<{
-      id: string
-      value: string
-    }>
+    questions: Array<string>
   }>
 }
 
-declare const content: IContent[]
-export default content
-module.exports = content
+declare const allContent: IContent[]
+export default allContent
+module.exports = allContent

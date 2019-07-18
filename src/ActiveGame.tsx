@@ -99,7 +99,6 @@ function viewModel(
   categories: IContent['categories']
   questions: Array<any>
 } {
-  debugger
   const nCols = content.categories.length
   let nRows = 0
   content.categories.forEach(
