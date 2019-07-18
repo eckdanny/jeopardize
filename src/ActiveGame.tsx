@@ -5,13 +5,17 @@ import {
   animated,
   ReactSpringHook,
   config,
+  useSpring,
+  useSprings,
 } from 'react-spring'
+import { createSelector } from 'reselect'
+import { useSelector, useDispatch } from 'react-redux'
 import Styles from './ActiveGame.module.css'
 import cx from 'classnames'
-import bar, { IContent } from './content'
 import ActiveQuestion from './ActiveQuestion'
-
-const vm = viewModel(bar[0])
+import { action } from './modules/game'
+import { getContent } from './modules/content'
+import { selectContent as rootSelectContent, AppState } from './reducers'
 
 type ActiveGameProps = {}
 
@@ -22,44 +26,65 @@ const animationConfig = {
   enter: { opacity: 1, transform: 'translate3d(0,0,0)' },
 }
 
+const selectContent = createSelector(
+  rootSelectContent,
+  getContent
+)
+
+const selectActiveQuestionId = createSelector(
+  (state: AppState) => state.game,
+  state => state.activeQuestionId
+)
+
 const ActiveGame: React.FC<ActiveGameProps> = () => {
-  const [questions, set] = useState<typeof vm.questions>(vm.questions)
-  const [activeQuestion, setActiveQuestion] = useState<any>(false)
-  const cardMap = useRef<{ [K: string]: HTMLDivElement }>({})
+  const dispatch = useDispatch()
+  const content = useSelector(selectContent)
+  const activeQuestionId = useSelector(selectActiveQuestionId)
+  // const [activeQuestion, setActiveQuestion] = useState<any>(false)
+  const cardMap = useRef<{ [K: string]: HTMLDivElement | null }>({})
   const containerRef = useRef<HTMLDivElement>(null)
+  // const handleItemClick = useCallback(
+  //   (e: React.SyntheticEvent) => {
+  //     console.log(cardMap.current)
+  //     const from = e.currentTarget.getBoundingClientRect()
+  //     const to = containerRef.current!.getBoundingClientRect()
+  //     console.log([from, to])
+  //     setActiveQuestion({ from, to })
+  //   },
+  //   [containerRef]
+  // )
   const handleItemClick = useCallback(
-    (e: React.SyntheticEvent) => {
-      const from = e.currentTarget.getBoundingClientRect()
-      const to = containerRef.current!.getBoundingClientRect()
-      console.log([from, to])
-      setActiveQuestion({ from, to })
+    (questionId: string) => {
+      dispatch(action.setActiveQuestion(questionId))
     },
-    [containerRef]
+    [containerRef, cardMap]
   )
   const categoryTransitionRef = useRef<ReactSpringHook>(null)
   const categoryTransitions = useTransition(
-    bar[0].categories,
-    item => item.name,
+    content.categories,
+    item => item.id,
     {
       ...animationConfig,
-      trail: 500 / bar[0].categories.length,
+      trail: 500 / content.categories.length,
       ref: categoryTransitionRef,
     }
   )
   const questionTransitionRef = useRef<ReactSpringHook>(null)
-  const questionTransitions = useTransition(questions, item => item.question, {
-    ...animationConfig,
-    // trail: 1000 / vm.questions.length,
-    ref: questionTransitionRef,
-  })
-  useChain([categoryTransitionRef, questionTransitionRef], [0, 1])
+  const questionTransitions = useTransition(
+    content.questions,
+    item => item.id,
+    {
+      ...animationConfig,
+      delay: 750,
+      ref: questionTransitionRef,
+      reset: true,
+    }
+  )
+  useChain([categoryTransitionRef, questionTransitionRef], [0, 0.75])
+  if (!content.questions.length) return null
   return (
     <div>
-      <div
-        className={cx(Styles.GridContainer)}
-        onClick={() => set(vm.questions)}
-        ref={containerRef}
-      >
+      <div className={cx(Styles.GridContainer)} ref={containerRef}>
         {categoryTransitions.map(({ item, key, props: animationStyle }) => (
           <animated.div
             key={key}
@@ -69,22 +94,31 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
             {item.name}
           </animated.div>
         ))}
+
         {questionTransitions.map(({ item, key, props }) => (
           <animated.div
             key={key}
             style={props}
             className={Styles.Item}
-            onClick={handleItemClick}
-            // ref={el => cardMap[item.value] = el}
+            // onClick={handleItemClick}
+            onClick={() => handleItemClick(item.id)}
+            ref={el => (cardMap.current[item.id] = el)}
           >
-            {`$${item.value}`}
+            {'undefined' !== typeof item.value && `$${(item.value + 1) * 200}`}
           </animated.div>
         ))}
       </div>
-      {activeQuestion && (
+      {/* {activeQuestion && (
         <ActiveQuestion
           {...activeQuestion}
           onClose={() => setActiveQuestion(false)}
+        />
+      )} */}
+      {activeQuestionId && (
+        <ActiveQuestion
+          from={cardMap.current[activeQuestionId]!.getBoundingClientRect()}
+          to={containerRef.current!.getBoundingClientRect()}
+          onClose={() => dispatch(action.closeActiveQuestion())}
         />
       )}
     </div>
@@ -92,34 +126,3 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
 }
 
 export default ActiveGame
-
-function viewModel(
-  content: IContent
-): {
-  categories: IContent['categories']
-  questions: Array<any>
-} {
-  const nCols = content.categories.length
-  let nRows = 0
-  content.categories.forEach(
-    category =>
-      (nRows =
-        category.questions.length > nRows ? category.questions.length : nRows)
-  )
-  const questions = []
-
-  for (let j = 0; j < nRows; j++) {
-    for (let i = 0; i < nCols; i++) {
-      const question = content.categories[i].questions[j]
-      questions.push({
-        question,
-        value: (j + 1) * 2 * 100,
-      })
-    }
-  }
-
-  return {
-    categories: content.categories,
-    questions,
-  }
-}

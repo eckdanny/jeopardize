@@ -6,19 +6,19 @@ export const CHALLENGE_CLOSE = 'jeopardize/game/CHALLEGE_CLOSE'
 export const CHALLENGE_SUCCESS = 'jeopardize/game/CHALLENGE_SUCCESS'
 export const CHALLENGE_FAILURE = 'jeopardize/game/CHALLENGE_FAILURE'
 
-interface ChallengeOpen extends Action {
+export interface ChallengeOpen extends Action {
   type: typeof CHALLENGE_OPEN
   payload: string
-  meta: {
+  meta?: {
     from: Pick<DOMRect, 'top' | 'left' | 'height' | 'width'>
   }
 }
 
-interface ChallengeClose extends Action {
+export interface ChallengeClose extends Action {
   type: typeof CHALLENGE_CLOSE
 }
 
-interface ChallengeSuccessAction extends Action {
+export interface ChallengeSuccessAction extends Action {
   type: typeof CHALLENGE_SUCCESS
   payload: {
     teamId: ITeam['id']
@@ -26,7 +26,7 @@ interface ChallengeSuccessAction extends Action {
   }
 }
 
-interface ChallengeFailureAction extends Action {
+export interface ChallengeFailureAction extends Action {
   type: typeof CHALLENGE_FAILURE
   payload: {
     teamId: ITeam['id']

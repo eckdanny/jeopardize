@@ -13,7 +13,7 @@ const initialState: IGameState = {
   score: {},
 }
 
-function reducer(
+export function reducer(
   state: IGameState = initialState,
   action: GameAction
 ): IGameState {
@@ -33,3 +33,5 @@ function reducer(
 }
 
 export default reducer
+
+export const getActiveQuestionId = (state: IGameState) => state.activeQuestionId

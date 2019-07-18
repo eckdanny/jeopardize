@@ -11,4 +11,4 @@ export interface ISetContent extends Action {
 
 export type ContentAction = ISetContent
 
-export type IContentState = Partial<ReturnType<typeof parseContent>>
+export type IContentState = null | ReturnType<typeof parseContent>

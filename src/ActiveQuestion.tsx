@@ -3,8 +3,8 @@ import { useSpring, animated, config } from 'react-spring'
 import Styles from './ActiveQuestion.module.css'
 
 type ActiveQuestionProps = {
-  from: DOMRect
-  to: DOMRect
+  from: DOMRect | any
+  to: DOMRect | any
   onClose: () => void
 }
 
