@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 import {
   useTransition,
   useChain,
@@ -9,6 +9,7 @@ import {
 import Styles from './ActiveGame.module.css'
 import cx from 'classnames'
 import bar, { IContent } from './content'
+import ActiveQuestion from './ActiveQuestion'
 
 const vm = viewModel(bar[0])
 
@@ -23,6 +24,17 @@ const animationConfig = {
 
 const ActiveGame: React.FC<ActiveGameProps> = () => {
   const [questions, set] = useState<typeof vm.questions>(vm.questions)
+  const [activeQuestion, setActiveQuestion] = useState<any>(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const handleItemClick = useCallback(
+    (e: React.SyntheticEvent) => {
+      const from = e.currentTarget.getBoundingClientRect()
+      const to = containerRef.current!.getBoundingClientRect()
+      console.log([from, to])
+      setActiveQuestion({ from, to })
+    },
+    [containerRef]
+  )
   const categoryTransitionRef = useRef<ReactSpringHook>(null)
   const categoryTransitions = useTransition(
     bar[0].categories,
@@ -41,28 +53,45 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
   })
   useChain([categoryTransitionRef, questionTransitionRef], [0, 1])
   return (
-    <div className={cx(Styles.GridContainer)} onClick={() => set(vm.questions)}>
-      {categoryTransitions.map(({ item, key, props: animationStyle }) => (
-        <animated.div
-          key={key}
-          className={cx(Styles.Item, Styles.HeaderItem)}
-          style={animationStyle}
-        >
-          {item.name}
-        </animated.div>
-      ))}
-      {/* {bar[0].categories.map((category, i) => {
+    <div>
+      <div
+        className={cx(Styles.GridContainer)}
+        onClick={() => set(vm.questions)}
+        ref={containerRef}
+      >
+        {categoryTransitions.map(({ item, key, props: animationStyle }) => (
+          <animated.div
+            key={key}
+            className={cx(Styles.HeaderItem)}
+            style={animationStyle}
+          >
+            {item.name}
+          </animated.div>
+        ))}
+        {/* {bar[0].categories.map((category, i) => {
         return (
           <div key={i} className={cx(Styles.Item, Styles.HeaderItem)}>
             {category.name}
           </div>
         )
       })} */}
-      {questionTransitions.map(({ item, key, props }) => (
-        <animated.div key={key} style={props} className={Styles.Item}>
-          {`$${item.value}`}
-        </animated.div>
-      ))}
+        {questionTransitions.map(({ item, key, props }) => (
+          <animated.div
+            key={key}
+            style={props}
+            className={Styles.Item}
+            onClick={handleItemClick}
+          >
+            {`$${item.value}`}
+          </animated.div>
+        ))}
+      </div>
+      {activeQuestion && (
+        <ActiveQuestion
+          {...activeQuestion}
+          onClose={() => setActiveQuestion(false)}
+        />
+      )}
     </div>
   )
 }

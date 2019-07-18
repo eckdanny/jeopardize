@@ -20,9 +20,11 @@
   font-size: 5vh;
   font-weight: bold;
   text-shadow: 2px 3px black;
+  cursor: pointer;
 }
 
 .HeaderItem {
+  composes: Item;
   font-size: 100%;
   font-weight: bold;
   color: white;
