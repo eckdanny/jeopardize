@@ -49,7 +49,7 @@ class AdminPopUpWindow extends Component<
       if (this.props.onunload) this.window.onunload = this.props.onunload
 
       // Set title
-      this.window.document.title = 'JeoParity Admin UI'
+      this.window.document.title = 'Jeopardize Game Admin'
       // Set contents
       const $old = this.window.document.body
       const $new = $old.cloneNode(false)

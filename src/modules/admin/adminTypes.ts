@@ -1,8 +1,8 @@
 // Types
 
-export const SHOW = 'jeoparity/admin/SHOW'
-export const HIDE = 'jeoparity/admin/HIDE'
-export const TOGGLE = 'jeoparity/admin/TOGGLE'
+export const SHOW = 'jeopardize/admin/SHOW'
+export const HIDE = 'jeopardize/admin/HIDE'
+export const TOGGLE = 'jeopardize/admin/TOGGLE'
 
 // Actions
 

@@ -1,10 +1,10 @@
-export const namespace = `jeoparity/teams`
+export const namespace = `jeopardize/teams`
 
 // Types
 
-export const ADD = `jeoparity/teams_ADD`
-export const UPDATE = `jeoparity/teams_UPDATE`
-export const REMOVE = `jeoparity/teams_REMOVE`
+export const ADD = `jeopardize/teams_ADD`
+export const UPDATE = `jeopardize/teams_UPDATE`
+export const REMOVE = `jeopardize/teams_REMOVE`
 
 // State
 
