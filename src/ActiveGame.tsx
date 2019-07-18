@@ -25,6 +25,7 @@ const animationConfig = {
 const ActiveGame: React.FC<ActiveGameProps> = () => {
   const [questions, set] = useState<typeof vm.questions>(vm.questions)
   const [activeQuestion, setActiveQuestion] = useState<any>(false)
+  const cardMap = useRef<{ [K: string]: HTMLDivElement }>({})
   const containerRef = useRef<HTMLDivElement>(null)
   const handleItemClick = useCallback(
     (e: React.SyntheticEvent) => {
@@ -68,19 +69,13 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
             {item.name}
           </animated.div>
         ))}
-        {/* {bar[0].categories.map((category, i) => {
-        return (
-          <div key={i} className={cx(Styles.Item, Styles.HeaderItem)}>
-            {category.name}
-          </div>
-        )
-      })} */}
         {questionTransitions.map(({ item, key, props }) => (
           <animated.div
             key={key}
             style={props}
             className={Styles.Item}
             onClick={handleItemClick}
+            // ref={el => cardMap[item.value] = el}
           >
             {`$${item.value}`}
           </animated.div>
@@ -104,6 +99,7 @@ function viewModel(
   categories: IContent['categories']
   questions: Array<any>
 } {
+  debugger
   const nCols = content.categories.length
   let nRows = 0
   content.categories.forEach(

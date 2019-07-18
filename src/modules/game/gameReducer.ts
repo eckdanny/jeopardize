@@ -1,13 +1,35 @@
-import { IGameState } from './gameTypes'
+import {
+  IGameState,
+  GameAction,
+  CHALLENGE_OPEN,
+  CHALLENGE_SUCCESS,
+  CHALLENGE_CLOSE,
+} from './gameTypes'
 
 const initialState: IGameState = {
-  teamControlId: null,
+  controllingTeamId: null,
   activeQuestionId: null,
-  retiredQuestions: {},
+  outcomes: {},
+  score: {},
 }
 
-function reducer(state: IGameState = initialState, action: any): IGameState {
-  return state
+function reducer(
+  state: IGameState = initialState,
+  action: GameAction
+): IGameState {
+  switch (action.type) {
+    case CHALLENGE_OPEN: {
+      return { ...state, activeQuestionId: action.payload }
+    }
+    case CHALLENGE_CLOSE: {
+      return { ...state, activeQuestionId: null }
+    }
+    case CHALLENGE_SUCCESS: {
+      return state
+    }
+    default:
+      return state
+  }
 }
 
 export default reducer

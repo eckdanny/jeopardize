@@ -3,7 +3,10 @@ export interface IContent {
   name: string
   categories: Array<{
     name: string
-    questions: string[]
+    questions: Array<{
+      id: string
+      value: string
+    }>
   }>
 }
 
