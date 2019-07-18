@@ -2,13 +2,13 @@ import React, { useCallback, useEffect } from 'react'
 import { getIsVisible, action } from './modules/admin'
 import { useSelector, useDispatch } from 'react-redux'
 import { createSelector } from 'reselect'
-import { AppState } from './reducers'
+import { selectAdmin } from './reducers'
 import AdminPopUpWindow from './AdminPopUpWindow'
 
 type AdminPopUpRendererProps = {}
 
 const selectIsVisible = createSelector(
-  (state: AppState) => state.admin,
+  selectAdmin,
   getIsVisible
 )
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
+import { copyStyles } from './copy-styles'
 
 type AdminPopUpWindowProps = {
   onbeforeunload?: WindowEventHandlers['onbeforeunload']
@@ -54,6 +55,7 @@ class AdminPopUpWindow extends Component<
       const $new = $old.cloneNode(false)
       $new.appendChild(this.container)
       $old.parentNode!.replaceChild($new, $old)
+      copyStyles(document, this.window.document)
       // Close on Parent Unload
       // this.window.opener.window.addEventListener('unload', () => {
       //   alert('closed!')

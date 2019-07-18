@@ -12,7 +12,7 @@ const BoardSelect: React.FC<BoardSelectProps> = props => {
   }, [])
   const handleSubmit = useCallback(e => {
     e.preventDefault()
-    debugger
+    // debugger
   }, [])
   return (
     <div>

@@ -1,15 +1,13 @@
 import React, { useState, useReducer } from 'react'
 import { Provider } from 'react-redux'
-import { Router, RouteComponentProps } from '@reach/router'
-import NewWindow from 'react-new-window'
+import { Router } from '@reach/router'
 import store from './store'
 import GameShell from './GameShell'
 import Header from './Header'
+import Welcome from './Welcome'
 import styles from './App.module.css'
 import CreateGame from './CreateGame'
 import AdminPopUpRenderer from './AdminPopUpRenderer'
-
-const Welcome: React.FC<{} & RouteComponentProps> = () => <div>WELCOME</div>
 
 const App: React.FC = () => {
   return (
@@ -21,7 +19,7 @@ const App: React.FC = () => {
       <div className={styles.App}>
         <Header />
         <div className={styles.AppMain}>
-          <Router>
+          <Router className={styles.ActiveRoute}>
             <Welcome path="/" />
             <CreateGame path="/new" />
             <GameShell path="/game" />

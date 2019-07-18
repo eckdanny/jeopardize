@@ -23,3 +23,8 @@
 .AppMain {
   padding-top: var(--nav-height);
 }
+
+.ActiveRoute {
+  overflow: hidden;
+  height: calc(100vh - var(--nav-height));
+}

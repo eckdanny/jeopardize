@@ -12,3 +12,9 @@ const rootReducer = combineReducers({
 export default rootReducer
 
 export type AppState = ReturnType<typeof rootReducer>
+
+// root selectors
+
+export const selectAdmin = (state: AppState) => state.admin
+export const selectTeams = (state: AppState) => state.teams
+export const selectWizard = (state: AppState) => state.wizard

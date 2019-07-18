@@ -5,12 +5,12 @@
   width: 100%;
   top: 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
 .Header__Brand {
   color: var(--color-yellow);
-  flex-grow: 1;
 }
 
 .Header__Controls {
