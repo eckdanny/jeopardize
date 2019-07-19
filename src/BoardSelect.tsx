@@ -1,40 +1,40 @@
-import React, { useCallback } from 'react'
-import uuid from 'uuid'
-// import boards from './content'
-
-// boards.forEach(board => ({ ...board, id: uuid() }))
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { IContent } from './content'
+import Styles from './BoardSelect.module.css'
+import { useDispatch } from 'react-redux'
+import { action } from './modules/content'
+import { parseContent } from './content/utils'
 
 type BoardSelectProps = {}
 
-const BoardSelect: React.FC<BoardSelectProps> = props => {
-  const handleClick = useCallback(e => {
-    console.log('clicked!')
-  }, [])
-  const handleSubmit = useCallback(e => {
-    e.preventDefault()
-    // debugger
-  }, [])
+const BoardSelect: React.FC<BoardSelectProps> = () => {
+  const dispatch = useDispatch()
+  const [boards, setBoards] = useState<IContent[]>(null!)
+  useEffect(() => {
+    import('./content')
+      .then(allContent => {
+        setBoards(allContent.default)
+      })
+      .catch(err => {
+        /* Handle failure */
+      })
+  }, [setBoards])
+  const selectBoard = (board: IContent) =>
+    dispatch(action.setContent(parseContent(board)))
   return (
-    <div>
+    <div className={Styles.BoardSelect}>
       <div>Select a Board!</div>
-      {/* {boards.length && (
-        <form onSubmit={handleSubmit}>
-          <ul>
-            {boards.map(board => (
-              <li key={board.id}>
-                <button
-                  type="submit"
-                  value={board.id}
-                  style={{ color: 'black' }}
-                  onClick={handleClick}
-                >
-                  {board.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </form>
-      )} */}
+      {boards && boards.length ? (
+        <ul>
+          {boards.map(board => (
+            <li key={board.id} onClick={() => selectBoard(board)}>
+              {board.name}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Sorry no Content!</p>
+      )}
     </div>
   )
 }

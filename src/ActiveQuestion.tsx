@@ -9,11 +9,13 @@ type ActiveQuestionProps = {
 }
 
 const ActiveQuestion: React.FC<ActiveQuestionProps> = props => {
+  console.log(props)
   const animatedStyle = useSpring({
     config: {
       ...config.stiff,
       clamp: true,
     },
+    // immediate: true,
     from: {
       top: props.from.top,
       left: props.from.left,

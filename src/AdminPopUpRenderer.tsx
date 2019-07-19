@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, Children } from 'react'
 import { getIsVisible, action } from './modules/admin'
 import { useSelector, useDispatch } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -16,7 +16,7 @@ const AdminPopUpRenderer: React.FC<AdminPopUpRendererProps> = props => {
   const isVisible = useSelector(selectIsVisible)
   const dispatch = useDispatch()
   const handleUnload = useCallback(() => {
-    dispatch(action.hideAdmin())
+    if (isVisible) dispatch(action.hideAdmin())
   }, [dispatch])
   useEffect(() => {
     const handleParentWindowClose = () => {
@@ -26,11 +26,11 @@ const AdminPopUpRenderer: React.FC<AdminPopUpRendererProps> = props => {
     return () => {
       window.removeEventListener('beforeunload', handleParentWindowClose)
     }
-  }, [])
+  }, [handleUnload])
   if (!isVisible) return null
   return (
     <AdminPopUpWindow onunload={handleUnload}>
-      <h3>HELLO WORLD!!!</h3>
+      {props.children}
     </AdminPopUpWindow>
   )
 }

@@ -1,12 +1,10 @@
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef, useCallback, useLayoutEffect, useState } from 'react'
 import {
   useTransition,
   useChain,
   animated,
   ReactSpringHook,
   config,
-  useSpring,
-  useSprings,
 } from 'react-spring'
 import { createSelector } from 'reselect'
 import { useSelector, useDispatch } from 'react-redux'
@@ -40,26 +38,18 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
   const dispatch = useDispatch()
   const content = useSelector(selectContent)
   const activeQuestionId = useSelector(selectActiveQuestionId)
-  // const [activeQuestion, setActiveQuestion] = useState<any>(false)
   const cardMap = useRef<{ [K: string]: HTMLDivElement | null }>({})
-  const containerRef = useRef<HTMLDivElement>(null)
-  // const handleItemClick = useCallback(
-  //   (e: React.SyntheticEvent) => {
-  //     console.log(cardMap.current)
-  //     const from = e.currentTarget.getBoundingClientRect()
-  //     const to = containerRef.current!.getBoundingClientRect()
-  //     console.log([from, to])
-  //     setActiveQuestion({ from, to })
-  //   },
-  //   [containerRef]
-  // )
+  const containerRef = useRef<HTMLDivElement>(null!)
+  const [containerBounds, setContainerBounds] = useState<ClientRect | DOMRect>(
+    undefined!
+  )
   const handleItemClick = useCallback(
     (questionId: string) => {
       dispatch(action.setActiveQuestion(questionId))
     },
-    [containerRef, cardMap]
+    [dispatch]
   )
-  const categoryTransitionRef = useRef<ReactSpringHook>(null)
+  const categoryTransitionRef = useRef<ReactSpringHook>(null!)
   const categoryTransitions = useTransition(
     content.categories,
     item => item.id,
@@ -69,21 +59,27 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
       ref: categoryTransitionRef,
     }
   )
-  const questionTransitionRef = useRef<ReactSpringHook>(null)
+  const questionTransitionRef = useRef<ReactSpringHook>(null!)
   const questionTransitions = useTransition(
     content.questions,
     item => item.id,
     {
       ...animationConfig,
-      delay: 750,
+      trail: 500 / content.questions.length,
       ref: questionTransitionRef,
       reset: true,
     }
   )
-  useChain([categoryTransitionRef, questionTransitionRef], [0, 0.75])
+  useChain([categoryTransitionRef, questionTransitionRef], [0, 1])
+  useLayoutEffect(() => {
+    if (!containerRef.current) return
+    setContainerBounds(
+      boundingRect(containerRef.current.getBoundingClientRect())
+    )
+  }, [containerRef, setContainerBounds])
   if (!content.questions.length) return null
   return (
-    <div>
+    <div className={cx(Styles.ActiveGame)}>
       <div className={cx(Styles.GridContainer)} ref={containerRef}>
         {categoryTransitions.map(({ item, key, props: animationStyle }) => (
           <animated.div
@@ -100,7 +96,6 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
             key={key}
             style={props}
             className={Styles.Item}
-            // onClick={handleItemClick}
             onClick={() => handleItemClick(item.id)}
             ref={el => (cardMap.current[item.id] = el)}
           >
@@ -108,21 +103,36 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
           </animated.div>
         ))}
       </div>
-      {/* {activeQuestion && (
-        <ActiveQuestion
-          {...activeQuestion}
-          onClose={() => setActiveQuestion(false)}
-        />
-      )} */}
-      {activeQuestionId && (
-        <ActiveQuestion
-          from={cardMap.current[activeQuestionId]!.getBoundingClientRect()}
-          to={containerRef.current!.getBoundingClientRect()}
-          onClose={() => dispatch(action.closeActiveQuestion())}
-        />
-      )}
+      {activeQuestionId &&
+        cardMap.current[activeQuestionId] &&
+        containerBounds && (
+          <ActiveQuestion
+            from={boundingRect(
+              cardMap.current[activeQuestionId]!.getBoundingClientRect()
+            )}
+            to={containerBounds}
+            onClose={() => dispatch(action.closeActiveQuestion())}
+          />
+        )}
     </div>
   )
 }
 
 export default ActiveGame
+
+//
+// Helpers
+//
+
+function boundingRect(
+  rect: ClientRect
+): Pick<ClientRect, 'bottom' | 'height' | 'left' | 'right' | 'top' | 'width'> {
+  return {
+    bottom: rect.bottom,
+    height: rect.height,
+    left: rect.left,
+    right: rect.right,
+    top: rect.top,
+    width: rect.width,
+  }
+}

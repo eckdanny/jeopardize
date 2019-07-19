@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Link, Router } from '@reach/router'
+import { Link } from '@reach/router'
 import AdminPopUpToggleControl from './AdminPopUpToggleControl'
 import styles from './Header.module.css'
 

@@ -1,4 +1,5 @@
 export interface IContent {
+  id: string
   name: string
   categories: Array<{
     name: string

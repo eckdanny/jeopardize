@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { createPortal } from 'react-dom'
 import { copyStyles } from './copy-styles'
 
@@ -56,13 +56,6 @@ class AdminPopUpWindow extends Component<
       $new.appendChild(this.container)
       $old.parentNode!.replaceChild($new, $old)
       copyStyles(document, this.window.document)
-      // Close on Parent Unload
-      // this.window.opener.window.addEventListener('unload', () => {
-      //   alert('closed!')
-      // })
-      // this.window.opener  addEventListener('unload', () => {
-      //   this.window!.close()
-      // })
     }
   }
 

@@ -30,16 +30,14 @@ const Wizard: React.FC<WizardProps> = props => {
   const stepIndex = useSelector(selectCurrentStep)
   const dispatch = useDispatch()
   useEffect(() => {
-    console.log(props.steps.length)
     dispatch(wizardActions.setSteps(props.steps.length))
-  }, [props.steps])
+  }, [props.steps, dispatch])
   const handleNext = () => dispatch(wizardActions.next())
   const handlePrev = () => dispatch(wizardActions.previous())
   const NextButton = props.NextButton!
   const PreviousButton = props.PreviousButton!
   return (
     <div className={styles.Wizard}>
-      {/* {stepIndex > 0 && <div className={styles.WizardProgress}>PROGRESS</div>} */}
       <div className={styles.WizardWrapper}>
         <div className={styles.WizardPreviousContainer}>
           {stepIndex > 0 && (
@@ -53,7 +51,6 @@ const Wizard: React.FC<WizardProps> = props => {
           )}
         </div>
       </div>
-      {/* <div className={styles.WizardFooter}>COMPLETE</div> */}
     </div>
   )
 }

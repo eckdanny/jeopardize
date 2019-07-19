@@ -1,8 +1,6 @@
 import React, { useCallback, useRef, SyntheticEvent } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { createSelector } from 'reselect'
 import { AppState } from './reducers'
-import { toggleAdmin } from './modules/admin/adminActions'
 import { addTeam, removeTeam } from './modules/teams/teamsActions'
 import { ITeam } from './modules/teams/teamsTypes'
 
@@ -30,7 +28,7 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
         inputEl.current.value = ''
       }
     },
-    [inputEl, teams]
+    [inputEl, teams, dispatch]
   )
   const handleRemove = (id: ITeam['id']) => {
     dispatch(removeTeam(id))
@@ -60,18 +58,5 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
     </div>
   )
 }
-
-// const CreateTeams: React.FC<CreateTeamsProps> = props => {
-//   const isVisible = useSelector(selectIsVisible)
-//   const dispatch = useDispatch()
-//   const handleToggle = useCallback(() => dispatch(toggleAdmin()), [dispatch])
-//   return (
-//     <div>
-//       alksdfjlkj
-//       <p>isVisible: {isVisible ? 'YES' : 'NO'}</p>
-//       <button onClick={handleToggle}>Toggle Me</button>
-//     </div>
-//   )
-// }
 
 export default CreateTeams

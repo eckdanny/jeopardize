@@ -9,7 +9,7 @@ function reducer(state = initialState, action: ITeamsActions) {
     case ADD:
       return [...state, { id: uuid(), name: action.payload }]
     case REMOVE:
-      return state.filter(team => team.id != action.payload)
+      return state.filter(team => team.id !== action.payload)
     case UPDATE:
       return state.map(d => (d.id === action.payload.id ? action.payload : d))
     default:
