@@ -3,7 +3,8 @@
   --color-blue: #0056d8;
   --color-blue-light: #009fe5;
   --color-yellow: #f1b154;
-  --nav-height: 5vh;
+  --nav-height: 40px;
+  --footer-height: 100px;
   --grid-gap: 0.5rem;
   --max-width: 980px;
 }
@@ -13,18 +14,4 @@
 :global #root {
   height: 100%;
   background-color: var(--color-blue);
-}
-
-.App {
-  height: 100%;
-  color: white;
-}
-
-.AppMain {
-  padding-top: var(--nav-height);
-}
-
-.ActiveRoute {
-  overflow: hidden;
-  height: calc(100vh - var(--nav-height));
 }

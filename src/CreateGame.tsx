@@ -12,7 +12,7 @@ const CreateGame: React.FC<CreateGameProps> = () => {
   return (
     <>
       <Wizard steps={[<BoardSelect />, <CreateTeams />, <StartGame />]} />
-      <TeamFooter />
+      {/* <TeamFooter /> */}
     </>
   )
 }

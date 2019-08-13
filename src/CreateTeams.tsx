@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AppState } from './reducers'
 import { addTeam, removeTeam } from './modules/teams/teamsActions'
 import { ITeam } from './modules/teams/teamsTypes'
+import Styles from './CreateTeams.module.css'
 
 type CreateTeamsProps<T = {}> = {} & T
 
@@ -14,6 +15,7 @@ const validateName = (name: string, teams: ITeam[]) => {
 }
 
 const CreateTeams: React.FC<CreateTeamsProps> = props => {
+  const inputId = useRef('HTML_ID_TEAM_INPUT_FORM')
   const teams = useSelector((state: AppState) => state.teams)
   const dispatch = useDispatch()
   const inputEl = useRef<HTMLInputElement>(null!)
@@ -37,8 +39,13 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Add Team</label>
-          <input type="text" ref={inputEl} />
+          <label htmlFor={inputId.current}>Add Team</label>
+          <input
+            id={inputId.current}
+            type="text"
+            ref={inputEl}
+            className={Styles.TeamInput}
+          />
         </div>
       </form>
       {teams.length ? (

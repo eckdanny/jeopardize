@@ -7,22 +7,21 @@ import Header from './Header'
 import Welcome from './Welcome'
 import CreateGame from './CreateGame'
 import AdminPopUpRenderer from './AdminPopUpRenderer'
-import styles from './App.module.css'
+import './App.module.css'
+import Main from './shared/layouts/Main'
+const myFont = require('typeface-loved-by-the-king')
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <AdminPopUpRenderer />
-      <div className={styles.App}>
-        <Header />
-        <div className={styles.AppMain}>
-          <Router className={styles.ActiveRoute}>
-            <Welcome path="/" />
-            <CreateGame path="/new" />
-            <GameShell path="/game" />
-          </Router>
-        </div>
-      </div>
+      <>
+        <AdminPopUpRenderer />
+        <Main header={<Header />}>
+          <Welcome path="/" />
+          <CreateGame path="/new" />
+          <GameShell path="/game" />
+        </Main>
+      </>
     </Provider>
   )
 }

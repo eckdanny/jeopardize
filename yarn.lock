@@ -9570,6 +9570,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typeface-loved-by-the-king@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/typeface-loved-by-the-king/-/typeface-loved-by-the-king-0.0.72.tgz#deae842470e7c7004681980dcf5266af0664b00f"
+  integrity sha512-hF8DQpGSnWEqxJAmkVEqqxvvIibCc5j00VHv75ZIeAkFMZIZPkGtQh8yUXImdTUZn+Cp7IajiyLBmQ+0C8zBZA==
+
 typesafe-actions@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-4.4.2.tgz#8f817c479d12130b5ebb442032968b2a18929e1a"

@@ -1,0 +1,26 @@
+.App {
+  height: 100%;
+  color: white;
+}
+
+.AppMain {
+  height: 100vh;
+}
+
+.AppMain__HeaderGhost {
+  height: var(--nav-height);
+  flex-shrink: 0;
+}
+
+.ActiveRoute {
+  /* overflow: hidden; */
+  height: calc(100% - var(--nav-height));
+  /* height: 100%; */
+  flex-grow: 1;
+}
+
+.Content {
+}
+
+.Footer {
+}

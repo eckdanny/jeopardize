@@ -20,6 +20,7 @@
     "react-spring": "^8.0.27",
     "redux": "^4.0.1",
     "reselect": "^4.0.0",
+    "typeface-loved-by-the-king": "^0.0.72",
     "typesafe-actions": "^4.4.2",
     "typescript": "3.5.2",
     "uuid": "^3.3.2"

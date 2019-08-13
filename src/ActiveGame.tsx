@@ -79,46 +79,61 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
   }, [containerRef, setContainerBounds])
   if (!content.questions.length) return null
   return (
-    <div className={cx(Styles.ActiveGame)}>
-      <div className={cx(Styles.GridContainer)} ref={containerRef}>
-        {categoryTransitions.map(({ item, key, props: animationStyle }) => (
-          <animated.div
-            key={key}
-            className={cx(Styles.HeaderItem)}
-            style={animationStyle}
-          >
-            {item.name}
-          </animated.div>
-        ))}
+    <>
+      <div className={cx(Styles.ActiveGame)}>
+        <div className={cx(Styles.GridContainer)} ref={containerRef}>
+          {categoryTransitions.map(({ item, key, props: animationStyle }) => (
+            <animated.div
+              key={key}
+              className={cx(Styles.HeaderItem)}
+              style={animationStyle}
+            >
+              {item.name}
+            </animated.div>
+          ))}
 
-        {questionTransitions.map(({ item, key, props }) => (
-          <animated.div
-            key={key}
-            style={props}
-            className={Styles.Item}
-            onClick={() => handleItemClick(item.id)}
-            ref={el => (cardMap.current[item.id] = el)}
-          >
-            {'undefined' !== typeof item.value && `$${(item.value + 1) * 200}`}
-          </animated.div>
-        ))}
+          {questionTransitions.map(({ item, key, props }) => (
+            <animated.div
+              key={key}
+              style={props}
+              className={Styles.Item}
+              onClick={() => handleItemClick(item.id)}
+              ref={el => (cardMap.current[item.id] = el)}
+            >
+              {'undefined' !== typeof item.value &&
+                `$${(item.value + 1) * 200}`}
+            </animated.div>
+          ))}
+        </div>
+        {activeQuestionId &&
+          cardMap.current[activeQuestionId] &&
+          containerBounds && (
+            <ActiveQuestion
+              from={boundingRect(
+                cardMap.current[activeQuestionId]!.getBoundingClientRect()
+              )}
+              to={containerBounds}
+              onClose={() => dispatch(action.closeActiveQuestion())}
+            />
+          )}
       </div>
-      {activeQuestionId &&
-        cardMap.current[activeQuestionId] &&
-        containerBounds && (
-          <ActiveQuestion
-            from={boundingRect(
-              cardMap.current[activeQuestionId]!.getBoundingClientRect()
-            )}
-            to={containerBounds}
-            onClose={() => dispatch(action.closeActiveQuestion())}
-          />
-        )}
-    </div>
+      {/* <TryThis /> */}
+    </>
   )
 }
 
 export default ActiveGame
+
+type TryThisProps = {}
+const TryThis: React.FC<TryThisProps> = function(props) {
+  return (
+    <div className={Styles.TryThis__LightBox}>
+      <div className={Styles.TryThis__Main}>
+        <div className={Styles.TryThis__ActiveQuestion}>Active Question</div>
+      </div>
+    </div>
+  )
+}
 
 //
 // Helpers

@@ -1,6 +1,37 @@
 .GameShell {
   display: flex;
-  overflow: hidden;
   height: 100%;
   flex-direction: column;
+  justify-content: stretch;
+}
+
+.Wrapper {
+  height: 100%;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+
+.Inner {
+  background-color: pink;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  flex-grow: 1;
+}
+
+.Main {
+  background-color: cyan;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  /* height: 100%; */
+  overflow: hidden;
+}
+
+.Footer {
+  background-color: orange;
+  flex-shrink: 0;
+  height: 150px;
 }
