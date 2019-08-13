@@ -36,31 +36,29 @@ const CreateTeams: React.FC<CreateTeamsProps> = props => {
     dispatch(removeTeam(id))
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor={inputId.current}>Add Team</label>
+    <div className={Styles.CreateTeams}>
+      <form className={Styles.Form} onSubmit={handleSubmit}>
+        <div className={Styles.InputGroup}>
           <input
             id={inputId.current}
             type="text"
             ref={inputEl}
             className={Styles.TeamInput}
           />
+          <label htmlFor={inputId.current}>Add Team</label>
         </div>
       </form>
       {teams.length ? (
-        <ul>
+        <ul className={Styles.TeamList}>
           {teams.map(team => (
-            <li key={team.id}>
-              <div>
-                {team.name}
-                <button onClick={() => handleRemove(team.id)}>Remove</button>
-              </div>
+            <li key={team.id} className={Styles.TeamListItem}>
+              <span className={Styles.Team}>{team.name}</span>
+              <button onClick={() => handleRemove(team.id)}>Remove</button>
             </li>
           ))}
         </ul>
       ) : (
-        <div>NO TEAMS YET!</div>
+        <div className={Styles.EmptyList}>NO TEAMS YET!</div>
       )}
     </div>
   )

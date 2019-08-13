@@ -1,5 +1,14 @@
-.Team {
-  font-family: 'Loved by the King';
+.CreateTeams {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Form {
+}
+
+.InputGroup {
+  text-align: center;
 }
 
 .TeamInput {
@@ -9,4 +18,44 @@
   color: white;
   display: block;
   font-size: 3em;
+  text-align: inherit;
+  word-spacing: -0.25em;
+}
+
+.TeamInput + label {
+  --color-muted-white: rgba(255, 255, 255, 0.8);
+  display: block;
+  color: var(--color-muted-white);
+  border-top: 1px solid var(--color-muted-white);
+  margin-top: -1.25em;
+}
+
+.Team {
+  font-family: 'Loved by the King';
+  word-spacing: -0.25em;
+}
+
+.TeamList,
+.EmptyList {
+  margin-top: 2rem;
+}
+
+.TeamList {
+  list-style: none;
+  padding: 0;
+}
+
+.TeamListItem {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.TeamListItem + .TeamListItem {
+  margin-top: 0.25rem;
+}
+
+.TeamListItem .Team {
+  font-size: 2rem;
+  margin: 0 1rem;
 }
