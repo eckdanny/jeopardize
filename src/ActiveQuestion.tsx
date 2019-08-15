@@ -11,48 +11,67 @@ type ActiveQuestionProps = {
 const ActiveQuestion: React.FC<ActiveQuestionProps> = props => {
   console.log(props)
   const [styleRest, setStyleRest] = useState<React.CSSProperties>()
+  // const animatedStyle = useSpring({
+  //   config: {
+  //     ...config.stiff,
+  //     clamp: true,
+  //   },
+  //   // immediate: true,
+  //   from: {
+  //     top: props.from.top,
+  //     left: props.from.left,
+  //     height: props.from.height,
+  //     width: props.from.width,
+  //   },
+  //   to: {
+  //     top: props.to.top,
+  //     left: props.to.left,
+  //     height: props.to.height,
+  //     width: props.to.width,
+  //   },
+  //   onRest: () => {
+  //     console.log('DO SOMETHING HERE!, like remove absolute positioning')
+  //     setStyleRest({
+  //       position: 'relative',
+  //       top: 'calc(var(--grid-gap) * 2)',
+  //       height: '631px',
+  //     })
+  //   },
+  // })
+
+  // const textStyle = useSpring({
+  //   from: { transform: 'scale(0)' },
+  //   to: { transform: 'scale(1)' },
+  // })
+  // something
+
+  const scaleX = props.from.width / props.to.width
+  const scaleY = props.from.height / props.to.height
+  const offsetX = props.to.left - props.from.left
+  const offsetY = props.to.top - props.from.top
   const animatedStyle = useSpring({
-    config: {
-      ...config.stiff,
-      clamp: true,
-    },
-    // immediate: true,
     from: {
-      top: props.from.top,
-      left: props.from.left,
-      height: props.from.height,
-      width: props.from.width,
+      transform: `scaleX(${scaleX}) scaleY(${scaleY}) translate(${offsetX}px, ${offsetY}px)`,
+      // top: props.from.top,
+      // left: props.from.left,
+      // height: props.from.height,
+      // width: props.from.width,
     },
     to: {
-      top: props.to.top,
-      left: props.to.left,
+      transform: 'scaleX(1) scaleY(1) translate(0, 0)',
+      // top: props.to.top,
+      // left: props.to.left,
       height: props.to.height,
-      width: props.to.width,
-    },
-    onRest: () => {
-      console.log('DO SOMETHING HERE!, like remove absolute positioning')
-      setStyleRest({
-        position: 'relative',
-        top: 'calc(var(--grid-gap) * 2)',
-        height: '631px',
-      })
+      // width: props.to.width,
     },
   })
-
-  const textStyle = useSpring({
-    from: { transform: 'scale(0)' },
-    to: { transform: 'scale(1)' },
-  })
-  // something
   return (
-    <animated.div
-      className={Styles.ActiveQuestion}
-      style={styleRest || animatedStyle}
-    >
+    <animated.div style={animatedStyle} className={Styles.ActiveQuestion}>
+      {/* style={styleRest || animatedStyle} */}
       <button className={Styles.CloseButton} onClick={props.onClose}>
         Close
       </button>
-      <animated.div className={Styles.Text} style={textStyle}>
+      <animated.div className={Styles.Text}>
         To marry Elizabeth, Prince Philip had to renounce claims to this
         southern European country's crown.
       </animated.div>
