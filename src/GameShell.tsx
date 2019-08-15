@@ -20,6 +20,7 @@ type GameShellProps = {} & RouteComponentProps
 // }
 
 const GameShell: React.FC<GameShellProps> = () => {
+  return <ActiveGame />
   return (
     <div className={Styles.Wrapper}>
       <div className={Styles.Main}>

@@ -14,8 +14,10 @@ import ActiveQuestion from './ActiveQuestion'
 import { action } from './modules/game'
 import { getContent } from './modules/content'
 import { selectContent as rootSelectContent, AppState } from './reducers'
+import { RouteComponentProps } from '@reach/router'
+import TeamFooter from './TeamFooter'
 
-type ActiveGameProps = {}
+type ActiveGameProps = {} & RouteComponentProps
 
 const animationConfig = {
   ...config.stiff,
@@ -46,6 +48,9 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
   const handleItemClick = useCallback(
     (questionId: string) => {
       dispatch(action.setActiveQuestion(questionId))
+      setContainerBounds(
+        boundingRect(containerRef.current.getBoundingClientRect())
+      )
     },
     [dispatch]
   )
@@ -105,35 +110,28 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
             </animated.div>
           ))}
         </div>
-        {activeQuestionId &&
-          cardMap.current[activeQuestionId] &&
-          containerBounds && (
-            <ActiveQuestion
-              from={boundingRect(
-                cardMap.current[activeQuestionId]!.getBoundingClientRect()
-              )}
-              to={containerBounds}
-              onClose={() => dispatch(action.closeActiveQuestion())}
-            />
-          )}
       </div>
-      {/* <TryThis /> */}
+      <TeamFooter />
+      {activeQuestionId &&
+        cardMap.current[activeQuestionId] &&
+        containerBounds && (
+          <div className={Styles.ModalBackdrop}>
+            <div className={Styles.ModalGrid}>
+              <ActiveQuestion
+                from={boundingRect(
+                  cardMap.current[activeQuestionId]!.getBoundingClientRect()
+                )}
+                to={containerBounds}
+                onClose={() => dispatch(action.closeActiveQuestion())}
+              />
+            </div>
+          </div>
+        )}
     </>
   )
 }
 
 export default ActiveGame
-
-type TryThisProps = {}
-const TryThis: React.FC<TryThisProps> = function(props) {
-  return (
-    <div className={Styles.TryThis__LightBox}>
-      <div className={Styles.TryThis__Main}>
-        <div className={Styles.TryThis__ActiveQuestion}>Active Question</div>
-      </div>
-    </div>
-  )
-}
 
 //
 // Helpers

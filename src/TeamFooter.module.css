@@ -14,15 +14,27 @@
   align-items: stretch;
   max-width: var(--max-width);
   margin: 0 auto;
-  background-color: pink;
+  /* background-color: pink; */
 }
 
-.TeamFooter__Team {
-  background-color: red;
-  padding: 0 50px;
+.FooterItem {
+  /* background-color: red; */
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ItemScore {
+  font-weight: bold;
+  font-size: 4.5vh;
+}
+
+.ItemName {
   font-family: 'Loved by the King';
+  font-size: 1.5rem;
 }
 
 .TeamFooter__Team--active {
-  background-color: pink;
+  /* background-color: pink; */
 }

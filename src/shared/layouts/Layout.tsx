@@ -7,7 +7,7 @@ type MainProps = {
   header: React.ReactNode
 }
 
-const Main: React.FC<MainProps> = ({ children, header }) => {
+const Layout: React.FC<MainProps> = ({ children, header }) => {
   return (
     <div className={Styles.App}>
       {header}
@@ -19,4 +19,4 @@ const Main: React.FC<MainProps> = ({ children, header }) => {
   )
 }
 
-export default Main
+export default Layout

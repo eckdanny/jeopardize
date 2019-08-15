@@ -1,15 +1,18 @@
-.Header {
-  height: var(--nav-height);
-  color: black;
+.Wrapper {
+  z-index: 100;
+  background-color: var(--color-blue-dark);
   position: fixed;
   width: 100%;
+}
+.Header {
+  height: var(--nav-height);
+  color: white;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
-  background-color: var(--color-blue-dark);
-  background-color: brown;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .Header__Brand {

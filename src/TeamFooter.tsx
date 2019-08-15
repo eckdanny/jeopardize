@@ -18,8 +18,9 @@ const TeamFooter: React.FC<TeamFooterProps> = () => {
       <div className={Styles.TeamFooter}>
         {teams.map(team => {
           return (
-            <div className={Styles.TeamFooter__Team} key={team.id}>
-              {team.name}
+            <div className={Styles.FooterItem} key={team.id}>
+              <div className={Styles.ItemName}>{team.name}</div>
+              <div className={Styles.ItemScore}>50000</div>
             </div>
           )
         })}

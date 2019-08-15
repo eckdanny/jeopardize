@@ -17,13 +17,19 @@ const Header: React.FC<HeaderProps> = () => {
     }
   }, [])
   return (
-    <div className={styles.Header}>
-      <Link to="/" className={styles.Header__Brand} onClick={handleNavigation}>
-        Jeopardize.it
-      </Link>
-      <div>
-        <Link to="/game">Game</Link>
-        <AdminPopUpToggleControl />
+    <div className={styles.Wrapper}>
+      <div className={styles.Header}>
+        <Link
+          to="/"
+          className={styles.Header__Brand}
+          onClick={handleNavigation}
+        >
+          Jeopardize.it
+        </Link>
+        <div>
+          <Link to="/game">Game</Link>
+          <AdminPopUpToggleControl />
+        </div>
       </div>
     </div>
   )
