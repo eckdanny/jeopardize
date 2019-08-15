@@ -47,11 +47,23 @@ const ActiveQuestion: React.FC<ActiveQuestionProps> = props => {
 
   const scaleX = props.from.width / props.to.width
   const scaleY = props.from.height / props.to.height
-  const offsetX = props.to.left - props.from.left
+  // const offsetX = props.from.left - props.to.left
+  const offsetX =
+    props.from.left +
+    props.from.width / 2 -
+    (props.to.left + props.to.width / 2)
   const offsetY = props.to.top - props.from.top
   const animatedStyle = useSpring({
+    config: {
+      ...config.stiff,
+      clamp: true,
+    },
     from: {
-      transform: `scaleX(${scaleX}) scaleY(${scaleY}) translate(${offsetX}px, ${offsetY}px)`,
+      transform: `
+        scaleX(${scaleX})
+        scaleY(${scaleY})
+        /* translate(${offsetX}px, ${offsetY}px) */
+      `,
       // top: props.from.top,
       // left: props.from.left,
       // height: props.from.height,
@@ -69,12 +81,9 @@ const ActiveQuestion: React.FC<ActiveQuestionProps> = props => {
     <animated.div style={animatedStyle} className={Styles.ActiveQuestion}>
       {/* style={styleRest || animatedStyle} */}
       <button className={Styles.CloseButton} onClick={props.onClose}>
-        Close
+        X
       </button>
-      <animated.div className={Styles.Text}>
-        To marry Elizabeth, Prince Philip had to renounce claims to this
-        southern European country's crown.
-      </animated.div>
+      <animated.div className={Styles.Text}>{props.children}</animated.div>
     </animated.div>
   )
 }

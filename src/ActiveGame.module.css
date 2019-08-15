@@ -10,13 +10,14 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: var(--grid-gap);
-  margin-bottom: var(--grid-gap);
-  margin-top: calc(var(--grid-gap) * 2);
+  /* margin-bottom: var(--grid-gap); */
+  margin: calc(var(--grid-gap) * 2) 0;
 }
 
 .BaseItem {
   text-align: center;
-  height: 12vh;
+  /* height: 12vh; */
+  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

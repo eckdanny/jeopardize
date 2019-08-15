@@ -123,7 +123,12 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
                 )}
                 to={containerBounds}
                 onClose={() => dispatch(action.closeActiveQuestion())}
-              />
+              >
+                {
+                  content.questions.find(d => d.id === activeQuestionId)!
+                    .content
+                }
+              </ActiveQuestion>
             </div>
           </div>
         )}
