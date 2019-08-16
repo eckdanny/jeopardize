@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTransition, animated } from 'react-spring'
 import { ITeam } from './modules/teams/teamsTypes'
 import { useSelector } from 'react-redux'
 import { AppState } from './reducers'
@@ -13,15 +14,20 @@ type TeamFooterProps = {}
 
 const TeamFooter: React.FC<TeamFooterProps> = () => {
   const teams = useSelector((state: AppState) => state.teams)
+  const transitions = useTransition(teams, team => team.id, {
+    from: { transform: 'translate3d(0,100%,0)' },
+    enter: { transform: 'translate3d(0,0px,0)' },
+    leave: { transform: 'translate3d(0,100%,0)' },
+  })
   return (
     <div className={Styles.Wrapper}>
       <div className={Styles.TeamFooter}>
-        {teams.map(team => {
+        {transitions.map(({ item, props, key }) => {
           return (
-            <div className={Styles.FooterItem} key={team.id}>
-              <div className={Styles.ItemName}>{team.name}</div>
+            <animated.div style={props} className={Styles.FooterItem} key={key}>
+              <div className={Styles.ItemName}>{item.name}</div>
               <div className={Styles.ItemScore}>50000</div>
-            </div>
+            </animated.div>
           )
         })}
       </div>

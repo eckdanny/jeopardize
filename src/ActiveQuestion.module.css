@@ -11,8 +11,9 @@
   /* why? */
   /* margin-right: 1px; */
 
-  transform-origin: center;
+  /* transform-origin: center; */
   margin-bottom: 50px;
+  transform-origin: top left;
 }
 
 .CloseButton {

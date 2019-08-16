@@ -75,7 +75,8 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
       reset: true,
     }
   )
-  useChain([categoryTransitionRef, questionTransitionRef], [0, 1])
+  // useChain([categoryTransitionRef, questionTransitionRef], [0, 1])
+  useChain([categoryTransitionRef, questionTransitionRef], [0.5, 1.375])
   useLayoutEffect(() => {
     if (!containerRef.current) return
     setContainerBounds(

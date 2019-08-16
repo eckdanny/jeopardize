@@ -33,6 +33,7 @@
 .ItemName {
   font-family: 'Loved by the King';
   font-size: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .TeamFooter__Team--active {
