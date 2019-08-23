@@ -23,6 +23,7 @@ export interface ChallengeSuccessAction extends Action {
   payload: {
     teamId: ITeam['id']
     questionId: string
+    value: number
   }
 }
 
@@ -31,6 +32,7 @@ export interface ChallengeFailureAction extends Action {
   payload: {
     teamId: ITeam['id']
     questionId: string
+    value: number
   }
 }
 

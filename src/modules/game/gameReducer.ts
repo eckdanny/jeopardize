@@ -25,7 +25,20 @@ export function reducer(
       return { ...state, activeQuestionId: null }
     }
     case CHALLENGE_SUCCESS: {
-      return state
+      return {
+        ...state,
+        controllingTeamId: action.payload.teamId,
+        activeQuestionId: null,
+        outcomes: {
+          ...state.outcomes,
+          [action.payload.questionId]: true,
+        },
+        score: {
+          ...state.score,
+          [action.payload.teamId]:
+            action.payload.value + (state.score[action.payload.teamId] || 0),
+        },
+      }
     }
     default:
       return state

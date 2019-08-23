@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, RouteComponentProps } from '@reach/router'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated, config } from 'react-spring'
 import styles from './Welcome.module.css'
 
 type WelcomeProps = RouteComponentProps & {
@@ -8,7 +8,11 @@ type WelcomeProps = RouteComponentProps & {
 }
 
 const Welcome: React.FC<WelcomeProps> = props => {
-  const animatedStyles = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } })
+  const animatedStyles = useSpring({
+    config: config.stiff,
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+  })
   return (
     <animated.div className={styles.Welcome} style={animatedStyles}>
       <h3 className={styles.FancyMessage}>Welcome!</h3>

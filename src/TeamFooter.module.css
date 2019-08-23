@@ -7,6 +7,10 @@
   /* bottom: 0; */
 }
 
+.dnone {
+  visibility: hidden;
+}
+
 .TeamFooter {
   height: 100%;
   display: flex;
@@ -25,9 +29,19 @@
   align-items: center;
 }
 
+.ItemNameWrapper {
+  display: flex;
+}
+
 .ItemScore {
   font-weight: bold;
   font-size: 4.5vh;
+}
+
+.ScoreButton {
+  display: block;
+  background-color: red;
+  border: none;
 }
 
 .ItemName {

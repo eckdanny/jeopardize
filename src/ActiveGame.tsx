@@ -16,6 +16,7 @@ import { getContent } from './modules/content'
 import { selectContent as rootSelectContent, AppState } from './reducers'
 import { RouteComponentProps } from '@reach/router'
 import TeamFooter from './TeamFooter'
+import { recordChallengeSuccess } from './modules/game/gameActions'
 
 type ActiveGameProps = {} & RouteComponentProps
 
@@ -37,6 +38,7 @@ const selectActiveQuestionId = createSelector(
 )
 
 const ActiveGame: React.FC<ActiveGameProps> = () => {
+  const [isAnimatingInitialView, setIsAnimatingInitialView] = useState(false)
   const dispatch = useDispatch()
   const content = useSelector(selectContent)
   const activeQuestionId = useSelector(selectActiveQuestionId)
@@ -47,6 +49,7 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
   )
   const handleItemClick = useCallback(
     (questionId: string) => {
+      if (isAnimatingInitialView) return false
       dispatch(action.setActiveQuestion(questionId))
       setContainerBounds(
         boundingRect(containerRef.current.getBoundingClientRect())
@@ -112,7 +115,22 @@ const ActiveGame: React.FC<ActiveGameProps> = () => {
           ))}
         </div>
       </div>
-      <TeamFooter />
+      <TeamFooter
+        showScoreMutators={!!activeQuestionId}
+        onAdd={teamId => {
+          dispatch(
+            recordChallengeSuccess({
+              teamId,
+              questionId: activeQuestionId,
+              value: content.questions.find(d => d.id === activeQuestionId)!
+                .value,
+            })
+          )
+        }}
+        onSubtract={teamId => {
+          console.log(teamId)
+        }}
+      />
       {activeQuestionId &&
         cardMap.current[activeQuestionId] &&
         containerBounds && (

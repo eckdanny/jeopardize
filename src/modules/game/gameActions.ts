@@ -4,6 +4,8 @@ import {
   ChallengeOpen,
   ChallengeClose,
   CHALLENGE_CLOSE,
+  ChallengeSuccessAction,
+  CHALLENGE_SUCCESS,
 } from './gameTypes'
 
 export const setActiveQuestion: ActionCreator<ChallengeOpen> = (
@@ -15,4 +17,17 @@ export const setActiveQuestion: ActionCreator<ChallengeOpen> = (
 
 export const closeActiveQuestion: ActionCreator<ChallengeClose> = () => ({
   type: CHALLENGE_CLOSE,
+})
+
+export const recordChallengeSuccess: ActionCreator<ChallengeSuccessAction> = ({
+  teamId,
+  questionId,
+  value,
+}) => ({
+  type: CHALLENGE_SUCCESS,
+  payload: {
+    teamId,
+    questionId,
+    value,
+  },
 })
