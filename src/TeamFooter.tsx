@@ -3,7 +3,8 @@ import cn from 'classnames'
 import { useTransition, animated } from 'react-spring'
 import { ITeam } from './modules/teams/teamsTypes'
 import { useSelector } from 'react-redux'
-import { AppState } from './reducers'
+import { AppState, selectGame } from './reducers'
+
 import Styles from './TeamFooter.module.css'
 
 interface ITeamVM extends ITeam {
@@ -19,6 +20,8 @@ type TeamFooterProps = {
 
 const TeamFooter: React.FC<TeamFooterProps> = props => {
   const teams = useSelector((state: AppState) => state.teams)
+  const game = useSelector(selectGame)
+  console.log(game)
   const transitions = useTransition(teams, team => team.id, {
     from: { transform: 'translate3d(0,100%,0)' },
     enter: { transform: 'translate3d(0,0px,0)' },

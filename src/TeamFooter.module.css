@@ -8,7 +8,9 @@
 }
 
 .dnone {
-  visibility: hidden;
+  /* visibility: hidden; */
+  opacity: 0;
+  transition: opacity 0.25 ease-in-out;
 }
 
 .TeamFooter {

@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect'
 import {
   IGameState,
   GameAction,
@@ -47,4 +48,11 @@ export function reducer(
 
 export default reducer
 
-export const getActiveQuestionId = (state: IGameState) => state.activeQuestionId
+const base: (x: { game: IGameState }) => IGameState = state => state.game
+
+export const getActiveQuestionId = createSelector(base, state => state.activeQuestionId)
+
+export const isActiveGame = createSelector(base, state => {
+  if (state.controllingTeamId) return true
+  if (state.activeQuestionId) return true
+})

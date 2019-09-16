@@ -17,7 +17,12 @@ export default rootReducer
 
 export type AppState = ReturnType<typeof rootReducer>
 
+const mkRootSelector = (name: keyof AppState) => {
+  return (state: AppState) => state.admin
+}
+
 export const selectAdmin = (state: AppState) => state.admin
+// export const selectAdmin = mkRootSelector('admin')
 export const selectTeams = (state: AppState) => state.teams
 export const selectWizard = (state: AppState) => state.wizard
 export const selectContent = (state: AppState) => state.content
